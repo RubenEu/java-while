@@ -80,13 +80,14 @@ S ::= x := a | skip | S1 ; S2 | if b then S1 else S2
 
 La sintaxis utilizada es parecida a Pascal.
 
-program ::= stm  
+program ::= stmList  
+stmList ::= stm
+   | stm ';' stmList
 stm ::= variable ':=' aexp  
    | 'skip'  
-   | stm ';' stm  
    | 'if' '(' bexp ')' 'then' stm 'else' stm  
    | 'while' '(' bexp ')' 'do' stm  
-   | 'begin' stm 'end'  
+   | 'begin' stmList 'end'  
    | 'print' '(' aexp ')'  
 aexp ::= INT_LITERAL  
    | variable  

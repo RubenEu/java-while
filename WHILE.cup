@@ -1,16 +1,10 @@
 import java_cup.runtime.*;
 import ast.*;
 
-parser code {:
-    public void syntax_error(Symbol cur_token) {
-        System.err.println("There was a syntax error.");
-        System.exit(1);
-    }
-:};
-
 non terminal Bexp bexp;
 non terminal Aexp aexp;
 non terminal Stm stm;
+non terminal Stm stmList;
 non terminal Program program;
 non terminal Variable variable;
 
@@ -22,9 +16,8 @@ terminal Integer INTLITERAL;
 
 precedence left PLUS, MINUS;
 precedence left MULT, AND;
-precedence left SEMICOLON;
 
-program ::= stm:st {: RESULT = new Program(st); :}
+program ::= stmList:st {: RESULT = new Program(st); :}
           ;
 
 aexp ::= INTLITERAL:il          {: RESULT = new IntLiteral(il); :}
@@ -44,13 +37,16 @@ bexp ::= TRUE                       {: RESULT = new True(); :}
        | LPAREN bexp:b RPAREN       {: RESULT = b; :}
        ;
 
+stmList ::= stm:st                          {: RESULT = st; :}
+          | stm:st1 SEMICOLON stmList:st2   {: RESULT = new Composition(st1, st2); :}
+          ;
+
 stm ::= variable:v ASSIGN aexp:a                {: RESULT = new Assignment(v, a); :}
       | SKIP                                    {: RESULT = new Skip(); :}
-      | stm:st1 SEMICOLON stm:st2               {: RESULT = new Composition(st1, st2); :}
       | IF LPAREN bexp:b RPAREN THEN stm:st1
                                 ELSE stm:st2    {: RESULT = new IfElse(b, st1, st2); :}
       | WHILE LPAREN bexp:b RPAREN DO stm:st    {: RESULT = new While(b, st); :}
-      | BEGIN stm:s END                         {: RESULT = new Block(s); :}
+      | BEGIN stmList:s END                     {: RESULT = new Block(s); :}
       | PRINT LPAREN aexp:a RPAREN              {: RESULT = new Print(a); :}
       ;
 
