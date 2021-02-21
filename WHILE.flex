@@ -9,7 +9,7 @@ import java_cup.runtime.Symbol;
 %line
 %column
 
-%state BLOCKCOMMENT
+%xstate BLOCKCOMMENT
 
 // Flex constants
 LineTerminator = \r|\n|\r\n
