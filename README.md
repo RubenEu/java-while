@@ -71,36 +71,36 @@ Extraída del libro de Nielson & Nielson.
 
 ## Sintaxis abstracta
 
-a ::= n | x | a1 + a2 | a1 ⋆ a2 | a1 − a2
-b ::= true | false | a1 = a2 | a1 ≤ a2 | ¬b | b1 ∧ b2
-S ::= x := a | skip | S1 ; S2 | if b then S1 else S2
+a ::= n | x | a1 + a2 | a1 ⋆ a2 | a1 − a2  
+b ::= true | false | a1 = a2 | a1 ≤ a2 | ¬b | b1 ∧ b2  
+S ::= x := a | skip | S1 ; S2 | if b then S1 else S2  
   | while b do S
 
 ## Sintaxis concreta
 
 La sintaxis utilizada es parecida a Pascal.
 
-program ::= stm
-stm ::= variable ':=' aexp
-   | 'skip'
-   | stm ';' stm
-   | 'if' '(' bexp ')' 'then' stm 'else' stm
-   | 'while' '(' bexp ')' 'do' stm
-   | 'begin' stm 'end'
-   | 'print' '(' aexp ')'
-aexp ::= INT_LITERAL
-   | variable
-   | aexp '+' aexp
-   | aexp '*' aexp
-   | aexp '-' aexp
-   | '(' aexp ')'
-bexp ::= 'true'
-   | 'false'
-   | aexp '=' aexp
-   | aexp '<=' aexp
-   | '!' bexp
-   | bexp '&&' bexp
-   | '(' bexp ')'
+program ::= stm  
+stm ::= variable ':=' aexp  
+   | 'skip'  
+   | stm ';' stm  
+   | 'if' '(' bexp ')' 'then' stm 'else' stm  
+   | 'while' '(' bexp ')' 'do' stm  
+   | 'begin' stm 'end'  
+   | 'print' '(' aexp ')'  
+aexp ::= INT_LITERAL  
+   | variable  
+   | aexp '+' aexp  
+   | aexp '*' aexp  
+   | aexp '-' aexp  
+   | '(' aexp ')'  
+bexp ::= 'true'  
+   | 'false'  
+   | aexp '=' aexp  
+   | aexp '<=' aexp  
+   | '!' bexp  
+   | bexp '&&' bexp  
+   | '(' bexp ')'  
 
 En la carpeta *code-examples* se encuentran ejemplos de las distintas sentencias
 del lenguaje.
