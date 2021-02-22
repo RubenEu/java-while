@@ -8,46 +8,34 @@ import java_cup.runtime.*;
 import java.io.Reader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.List;
-
-import ctd.CTD;
 
 import ast.*;
 import visitor.*;
 
 public class WHILEC {
 
-    public static List<CTD> compileFile(String file) throws FileNotFoundException {
+    public static Reader readProgramFile(String fileName) throws FileNotFoundException {
         Reader programCode = null;
-        try {
-            programCode = new FileReader(file);
-        } catch(FileNotFoundException e) {
-            System.err.println("There was an error while reading the file:");
-            e.printStackTrace();
-            System.exit(1);
-        } catch(Exception e) {
-            System.err.println("There was a fatal error:");
-            e.printStackTrace();
-            System.exit(1);
-        }
-        Yylex lexer = new Yylex(programCode);
+        programCode = new FileReader(fileName);
+        return programCode;
+    }
+
+    public static Program parseReader(Reader program) {
+        Yylex lexer = new Yylex(program);
         parser parser = new parser(lexer);
         Symbol parserTree = null;
         try {
             parserTree = parser.parse();
-        } catch(Exception e) {
-            System.err.println("There was an error while parsing.");
-            e.printStackTrace();
-            System.exit(1);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
-        Program programAst = (Program) parserTree.value;
-        // Execute the CTD visitor and generate ctd output.
-        CTDVisitor ctdVisitor = new CTDVisitor();
-        ctdVisitor.visit(programAst);
-        return ctdVisitor.getCtds();
+        return (Program) parserTree.value;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        compileFile(args[0]).forEach(System.out::println);
+        Program astProgram = parseReader(readProgramFile(args[0]));
+        CTDVisitor ctdVisitor = new CTDVisitor();
+        ctdVisitor.visit(astProgram);
+        ctdVisitor.getCtds().forEach(System.out::println);
     }
 }
