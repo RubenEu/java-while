@@ -95,7 +95,7 @@ S ::= x := a | skip | S1 ; S2 | if b then S1 else S2
 
 La sintaxis utilizada es parecida a Pascal.
 
-El lenguaje WHILEC especificado en el libro no incluye la sentencia *print* pero para poder imprimir por la salida estándar
+El lenguaje WHILE especificado en el libro no incluye la sentencia *print* pero para poder imprimir por la salida estándar
 los resultados, se ha incluído en esta implementación.
 
 program ::= stmList  
