@@ -37,7 +37,7 @@ IntegerLiteral = 0 | [1-9][0-9]*
 "if"        { return new Symbol(sym.IF); }
 "else"      { return new Symbol(sym.ELSE); }
 "then"      { return new Symbol(sym.THEN); }
-"while"     { return new Symbol(sym.WHILE); }
+"while"     { return new Symbol(sym.WHILEC); }
 "do"        { return new Symbol(sym.DO); }
 "begin"     { return new Symbol(sym.BEGIN); }
 "end"       { return new Symbol(sym.END); }

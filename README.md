@@ -1,33 +1,48 @@
-# Compilador WHILE
+# Compilador WHILEC
 
-Este proyecto ha sido realizado con fines de aprendizaje.
+Proyecto realizado con fines de aprendizaje.
 
-En un inicio se realizará un compilador que convertirá el código introducido a un código intermedio. Este código intermedio podrá ser ejecutado con el [intérprete CTD](https://www.siette.org/siette.htdocs/pl/yacc-ctd/bin/). En un futuro se implementará con LLVM o MIR, o alguna variante que proporcione un ejecutable.
+Compilador básico de la especificación del lenguaje WHILEC del libro *Semantics with Applications (Nielson & Nielson)*.
 
-Las fases que el compilador cubre:
+Las fases que el compilador cubren son las siguientes:
 
-- Análisis léxico
-
-- Análisis sintáctico
-
-- Generación de código intermedio ([Intérprete: CTD](https://www.siette.org/siette.htdocs/pl/yacc-ctd/bin/))
-
-El propósito de este proyecto es ir aprender e ir descubriendo las siguientes fases de generación de código, optimización, etc.
+- Análisis léxico ([JFLEX](src/main/jflex/lexer.jflex)).
+- Análisis sintáctico ([CUP](src/main/cup/parser.cup))
+- Generación de código intermedio CTD ([CTDVisitor](src/main/java/visitor/CTDVisitor.java))
+    - Se puede ejecutar el código intermedio con el ejecutable [Intérprete: CTD](https://www.siette.org/siette.htdocs/pl/yacc-ctd/bin/).
+- TODO: Intérprete del código intermedio
+- TODO: Generación de ejecutable
 
 ## Ejecutar el compilador
 
+Para generar el código CTD desde Maven:
+```bash
+# Ejecutar el main del compilador
+$ mvn exec:java -Dexec.mainClass=WHILEC -Dexec.args="src/main/resources/code-examples/aexp-4.w"
+```
+
+Otra opción es extraer los ficheros principales (main, .cup, .jflex y clases auxiliares) y
+moverlos a otra carpeta; compilándolos y ejecutándolos como a continuación:
+
 ```bash
 $ export CLASSPATH=.:/usr/share/java/cup.jar  # Necessary to compile CUP.
-$ cup WHILE.cup                               # Generate CUP files.
-$ jflex WHILE.flex                            # Generate JFLEX files.
+$ cup WHILEC.cup                               # Generate CUP files.
+$ jflex WHILEC.flex                            # Generate JFLEX files.
 $ javac *.java                                # Compile all the source code.
-$ java WHILE <file>                           # Execute the compiler with the <file>.
+$ java WHILEC <file>                           # Execute the compiler with the <file>.
+```
+
+para ello se proporciona el archivo .sh **extract.sh**, al ejecutarlo crea la carpeta *while-java-compiler/*
+con todos los archivos necesarios.
+
+```bash
+$ ./extract.sh
 ```
 
 El código de salida puede ser ejecutado con el [intérprete CTD](https://www.siette.org/siette.htdocs/pl/yacc-ctd/bin/).
 
 ```bash
-$ java WHILE <file> | ./ctd
+$ java WHILEC <file> | ./ctd
 ```
 
 ## Código intermedio
@@ -53,11 +68,11 @@ halt;               | Detiene la ejecución.
 
 La especificación del código CTD ha sido extraída del [PLX-2014](https://www.siette.org/siette.htdocs/pl/cup-plxc/doc/PLX-2014.pdf) de la asignatura de Procesadores de Lenguaje impartida por Ricardo José Conejo Muñoz en la [UMA](https://uma.es/).
 
-# Lenguaje WHILE
+# Lenguaje WHILEC
 
-WHILE es un lenguaje de ejemplo extraído del libro Semantics with Applications (Nielson & Nielson).  
+WHILEC es un lenguaje de ejemplo extraído del libro Semantics with Applications (Nielson & Nielson).  
 
-# Especificación de WHILE
+# Especificación de WHILEC
 
 Extraída del libro de Nielson & Nielson.
 
@@ -79,6 +94,9 @@ S ::= x := a | skip | S1 ; S2 | if b then S1 else S2
 ## Sintaxis concreta
 
 La sintaxis utilizada es parecida a Pascal.
+
+El lenguaje WHILEC especificado en el libro no incluye la sentencia *print* pero para poder imprimir por la salida estándar
+los resultados, se ha incluído en esta implementación.
 
 program ::= stmList  
 stmList ::= stm
@@ -103,5 +121,5 @@ bexp ::= 'true'
    | bexp '&&' bexp  
    | '(' bexp ')'  
 
-En la carpeta *code-examples* se encuentran ejemplos de las distintas sentencias
+En la carpeta [*code-examples*](src/main/resources/code-examples/) se encuentran ejemplos de las distintas sentencias
 del lenguaje.

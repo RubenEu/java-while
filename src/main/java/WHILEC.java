@@ -8,17 +8,19 @@ import java_cup.runtime.*;
 import java.io.Reader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.List;
+
+import ctd.CTD;
 
 import ast.*;
 import visitor.*;
 
-public class WHILE {
+public class WHILEC {
 
-
-    public static void main(String[] args) throws FileNotFoundException {
+    public static List<CTD> compileFile(String file) throws FileNotFoundException {
         Reader programCode = null;
         try {
-            programCode = new FileReader(args[0]);
+            programCode = new FileReader(file);
         } catch(FileNotFoundException e) {
             System.err.println("There was an error while reading the file:");
             e.printStackTrace();
@@ -42,6 +44,10 @@ public class WHILE {
         // Execute the CTD visitor and generate ctd output.
         CTDVisitor ctdVisitor = new CTDVisitor();
         ctdVisitor.visit(programAst);
-        ctdVisitor.getCtds().forEach(System.out::println);
+        return ctdVisitor.getCtds();
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        compileFile(args[0]).forEach(System.out::println);
     }
 }
