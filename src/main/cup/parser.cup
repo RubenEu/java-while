@@ -9,7 +9,7 @@ non terminal Program program;
 non terminal Variable variable;
 
 terminal PLUS, MULT, MINUS, TRUE, FALSE, EQUAL, LESSEQUAL, EXCLAMATION, AND;
-terminal ASSIGN, SKIP, SEMICOLON, IF, ELSE, THEN, WHILEC, DO, BEGIN, END, PRINT;
+terminal ASSIGN, SKIP, SEMICOLON, IF, ELSE, THEN, WHILE, DO, BEGIN, END, PRINT;
 terminal LPAREN, RPAREN;
 terminal String IDENTIFIER;
 terminal Integer INTLITERAL;
@@ -45,7 +45,7 @@ stm ::= variable:v ASSIGN aexp:a                {: RESULT = new Assignment(v, a)
       | SKIP                                    {: RESULT = new Skip(); :}
       | IF LPAREN bexp:b RPAREN THEN stm:st1
                                 ELSE stm:st2    {: RESULT = new IfElse(b, st1, st2); :}
-      | WHILEC LPAREN bexp:b RPAREN DO stm:st    {: RESULT = new While(b, st); :}
+      | WHILE LPAREN bexp:b RPAREN DO stm:st    {: RESULT = new While(b, st); :}
       | BEGIN stmList:s END                     {: RESULT = new Block(s); :}
       | PRINT LPAREN aexp:a RPAREN              {: RESULT = new Print(a); :}
       ;
