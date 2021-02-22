@@ -2,7 +2,7 @@
 
 Proyecto realizado con fines de aprendizaje.
 
-Compilador básico de la especificación del lenguaje WHILEC del libro *Semantics with Applications (Nielson & Nielson)*.
+Compilador básico de la especificación del lenguaje WHILE del libro *Semantics with Applications (Nielson & Nielson)*.
 
 Las fases que el compilador cubren son las siguientes:
 
@@ -68,11 +68,11 @@ halt;               | Detiene la ejecución.
 
 La especificación del código CTD ha sido extraída del [PLX-2014](https://www.siette.org/siette.htdocs/pl/cup-plxc/doc/PLX-2014.pdf) de la asignatura de Procesadores de Lenguaje impartida por Ricardo José Conejo Muñoz en la [UMA](https://uma.es/).
 
-# Lenguaje WHILEC
+# Lenguaje WHILE
 
-WHILEC es un lenguaje de ejemplo extraído del libro Semantics with Applications (Nielson & Nielson).  
+WHILE es un lenguaje de ejemplo extraído del libro Semantics with Applications (Nielson & Nielson).  
 
-# Especificación de WHILEC
+# Especificación de WHILE
 
 Extraída del libro de Nielson & Nielson.
 
