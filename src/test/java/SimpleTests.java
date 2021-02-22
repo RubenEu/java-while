@@ -3,6 +3,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import ast.Program;
 import ctd.CTD;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import visitor.CTDVisitor;
 
 import java.io.Reader;
@@ -89,6 +91,30 @@ public class SimpleTests {
                 print(x)
                 """;
         List<Integer> expected = Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11);
+        List<String> output = executeProgram(program);
+        assertEquals(expected.toString(), output.toString());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 3, 5, 10})
+    void programFactorial(int number) {
+        String program = """
+            // Compute the factorial of x.
+            
+            x := NUMBER;
+            y := 1;
+            while (1 <= x) do begin
+               y := y * x;
+               x := x - 1
+            end;
+            print(y)
+            """.replaceFirst("NUMBER", String.valueOf(number));
+        // Calculate factorial
+        int fact = 1;
+        for (int i = 2; i <= number; i++) {
+            fact = fact * i;
+        }
+        List<Integer> expected = Arrays.asList(fact);
         List<String> output = executeProgram(program);
         assertEquals(expected.toString(), output.toString());
     }
