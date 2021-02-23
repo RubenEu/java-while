@@ -10,7 +10,7 @@ Las fases que el compilador cubren son las siguientes:
 - Análisis sintáctico ([CUP](src/main/cup/parser.cup))
 - Generación de código intermedio CTD ([CTDVisitor](src/main/java/visitor/CTDVisitor.java))
     - Se puede ejecutar el código intermedio con el ejecutable [Intérprete: CTD](https://www.siette.org/siette.htdocs/pl/yacc-ctd/bin/).
-- TODO: Intérprete del código intermedio
+- Intérprete del código intermedio ([CTDInterpreter](src/main/java/CTDInterpreter.java))
 - TODO: Generación de ejecutable
 
 ## Ejecutar el compilador
@@ -99,8 +99,8 @@ El lenguaje WHILE especificado en el libro no incluye la sentencia *print* pero 
 los resultados, se ha incluído en esta implementación.
 
 program ::= stmList  
-stmList ::= stm
-   | stm ';' stmList
+stmList ::= stm  
+   | stm ';' stmList  
 stm ::= variable ':=' aexp  
    | 'skip'  
    | 'if' '(' bexp ')' 'then' stm 'else' stm  
