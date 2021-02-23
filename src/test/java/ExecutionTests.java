@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SimpleTests {
+public class ExecutionTests {
 
     List<String> executeProgram(String program) {
         // Read the source code.
