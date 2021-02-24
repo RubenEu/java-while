@@ -1,7 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import ast.Program;
-import ctd.CTD;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -25,7 +24,7 @@ public class ExecutionTests {
         // Execute the program and get the results.
         CTDInterpreter ctdInterpreter = new CTDInterpreter();
         ctdInterpreter.execute(ctdVisitor.getCtds());
-        return ctdInterpreter.getResults();
+        return ctdInterpreter.getPrints();
     }
 
     @Test

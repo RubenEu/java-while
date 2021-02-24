@@ -9,7 +9,8 @@ Las fases que el compilador cubren son las siguientes:
 - Análisis léxico ([JFLEX](src/main/jflex/lexer.jflex)).
 - Análisis sintáctico ([CUP](src/main/cup/parser.cup))
 - Generación de código intermedio CTD ([CTDVisitor](src/main/java/visitor/CTDVisitor.java))
-    - Se puede ejecutar el código intermedio con el ejecutable [Intérprete: CTD](https://www.siette.org/siette.htdocs/pl/yacc-ctd/bin/).
+    - Se puede ejecutar el código intermedio con el ejecutable
+      [Intérprete: CTD](https://www.siette.org/siette.htdocs/pl/yacc-ctd/bin/).
 - Intérprete del código intermedio ([CTDInterpreter](src/main/java/CTDInterpreter.java))
 - TODO: Generación de ejecutable
 
@@ -55,18 +56,16 @@ x = a;              | Asigna el valor de a en la variable x;
 x = a + b;          | Suma los valores de a y b y asigna el resultado en x.
 x = a - b;          | Resta los valores de a y b asigna el resultado en x.
 x = a * b;          | Multiplica los valores de a y b asigna el resultado en x.
-x = a / b;          | Divide los valores de a y b asigna el resultado en x.
 goto l;             | Salto incondicional. Salta a la posición de la etiqueta l.
 if (a == b) goto l; | Salto condicional. Salta a la etiqueta l si se cumple que el valor de a es igual al de b.
 if (a < b) goto l;  | Salto condicional. Salta a la etiqueta l si a es menor estricto que b.
 l:                  | Posición de salto con el nombre l.
-label l;            | Posición de salto con el nombre l. (Igual que la anterior pero de otra forma sintáctica).
 print a;            | Imprime el valor de a por pantalla.
-error;              | Inidica una situación de error.
-halt;               | Detiene la ejecución.
 \# ...              | Cualquier línea que comience con \# se considerará un comentario.
 
-La especificación del código CTD ha sido extraída del [PLX-2014](https://www.siette.org/siette.htdocs/pl/cup-plxc/doc/PLX-2014.pdf) de la asignatura de Procesadores de Lenguaje impartida por Ricardo José Conejo Muñoz en la [UMA](https://uma.es/).
+La especificación del código CTD es un subconjunto de las instrucciones extraídas del
+[PLX-2014](https://www.siette.org/siette.htdocs/pl/cup-plxc/doc/PLX-2014.pdf) de la asignatura de Procesadores de
+Lenguaje impartida por Ricardo José Conejo Muñoz en la [UMA](https://uma.es/).
 
 # Lenguaje WHILE
 
@@ -95,8 +94,8 @@ S ::= x := a | skip | S1 ; S2 | if b then S1 else S2
 
 La sintaxis utilizada es parecida a Pascal.
 
-El lenguaje WHILE especificado en el libro no incluye la sentencia *print* pero para poder imprimir por la salida estándar
-los resultados, se ha incluído en esta implementación.
+El lenguaje WHILE especificado en el libro no incluye la sentencia *print* pero para poder imprimir por la salida
+estándar los resultados, se ha incluído en esta implementación.
 
 program ::= stmList  
 stmList ::= stm  

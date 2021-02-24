@@ -1,34 +1,37 @@
 import ctd.*;
-import org.apache.tools.ant.taskdefs.Copy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Simple interpreter for the CTD code.
+ * The arguments are only string variables with an integer value (or 0 if it doesnt exists) or integer literals.
+ */
 public class CTDInterpreter {
     /**
-     * Variable name maps its value.
+     * Variables with an integer value.
      */
     private Map<String, Integer> variables;
     /**
-     * Label name indicate its ctd index (jump index).
+     * Jump line associated to a label.
      */
     private Map<String, Integer> labels;
     /**
-     * Store the results in order (prints).
+     * Prints generateds.
      */
-    private List<String> results;
+    private List<String> prints;
 
     public CTDInterpreter() {
         variables = new HashMap<>();
         labels = new HashMap<>();
-        results = new ArrayList<>();
+        prints = new ArrayList<>();
     }
 
     /**
-     * Return the Integer value of an object (string or integer).
-     * @param _arg Variable or integer.
+     * Return the integer value associated to _arg.
+     * @param _arg Variable name or integer.
      * @return Integer value.
      */
     private Integer getArgValue(Object _arg) {
@@ -63,25 +66,15 @@ public class CTDInterpreter {
                 AssignmentCTD ctd = (AssignmentCTD) _ctd;
                 Integer leftValue = getArgValue(ctd.getArg1());
                 Integer rightValue = getArgValue(ctd.getArg2());
-                // Operation (+, -, *, /).
-                Integer result = 0;
-                if(ctd.getOp().equals("+"))
-                    result = leftValue + rightValue;
-                else if(ctd.getOp().equals("-"))
-                    result = leftValue - rightValue;
-                else if(ctd.getOp().equals("*"))
-                    result = leftValue * rightValue;
-                else if(ctd.getOp().equals("/"))
-                    result = leftValue / rightValue;
-                else
-                    System.err.println("Operation in Assignment not allowed.");
+                // Allowed operations: +, -, *.
+                int result = switch ((String) ctd.getOp()) {
+                    case "+" -> leftValue + rightValue;
+                    case "-" -> leftValue - rightValue;
+                    case "*" -> leftValue * rightValue;
+                    default -> throw new RuntimeException("Operation not allowed");
+                };
                 // Update the value.
                 variables.put((String) ctd.getResult(), result);
-                // Go to the next line.
-                index += 1;
-            } else if(_ctd instanceof CastingCTD) {
-                // TODO
-
                 // Go to the next line.
                 index += 1;
             } else if(_ctd instanceof CommentCTD) {
@@ -95,20 +88,10 @@ public class CTDInterpreter {
                 variables.put((String) ctd.getResult(), leftValue);
                 // Go to the next line.
                 index += 1;
-            } else if(_ctd instanceof ErrorCTD) {
-                // TODO
-
-                // Go to the next line.
-                index += 1;
             } else if(_ctd instanceof GotoCTD) {
                 GotoCTD ctd = (GotoCTD) _ctd;
                 // Go to the jump line.
                 index = labels.get((String) ctd.getResult());
-            } else if(_ctd instanceof HaltCTD) {
-                // TODO
-
-                // Go to the next line.
-                index += 1;
             } else if(_ctd instanceof IfCTD) {
                 IfCTD ctd = (IfCTD) _ctd;
                 Integer leftValue = getArgValue(ctd.getArg1());
@@ -134,12 +117,7 @@ public class CTDInterpreter {
             } else if(_ctd instanceof PrintCTD) {
                 PrintCTD ctd = (PrintCTD) _ctd;
                 Integer result = getArgValue(ctd.getArg1());
-                results.add(result.toString());
-                // Go to the next line.
-                index += 1;
-            } else if(_ctd instanceof UnaryOperationCTD) {
-                // TODO
-
+                prints.add(result.toString());
                 // Go to the next line.
                 index += 1;
             } else {
@@ -151,7 +129,7 @@ public class CTDInterpreter {
         }
     }
 
-    public List<String> getResults() {
-        return results;
+    public List<String> getPrints() {
+        return prints;
     }
 }
