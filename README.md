@@ -2,7 +2,7 @@
 
 Proyecto realizado con fines de aprendizaje.
 
-Compilador básico de la especificación del lenguaje WHILE del libro *Semantics with Applications (Nielson & Nielson)*.
+Compilador básico de la especificación del lenguaje WHILE del libro Nielson, H. R., &amp; Nielson, F. (2007). *Semantics with applications: An appetizer*. London: Springer Verlag.
 
 Las fases que el compilador cubren son las siguientes:
 
@@ -12,7 +12,6 @@ Las fases que el compilador cubren son las siguientes:
     - Se puede ejecutar el código intermedio con el ejecutable
       [Intérprete: CTD](https://www.siette.org/siette.htdocs/pl/yacc-ctd/bin/).
 - Intérprete del código intermedio ([CTDInterpreter](src/main/java/CTDInterpreter.java))
-- TODO: Generación de ejecutable
 
 ## Ejecutar el compilador
 
@@ -69,11 +68,9 @@ Lenguaje impartida por Ricardo José Conejo Muñoz en la [UMA](https://uma.es/).
 
 # Lenguaje WHILE
 
-WHILE es un lenguaje de ejemplo extraído del libro Semantics with Applications (Nielson & Nielson).  
+WHILE es un lenguaje de ejemplo extraído del libro Nielson, H. R., &amp; Nielson, F. (2007). *Semantics with applications: An appetizer*. London: Springer Verlag.
 
 # Especificación de WHILE
-
-Extraída del libro de Nielson & Nielson.
 
 ## Categorías sintácticas
 
